@@ -1,0 +1,1388 @@
+// Calling the package
+const Discord = require('discord.js');
+const client = new Discord.Client();
+const fs = require('fs'); // First, we need to require fs, it is packaged with node.js so no need to download anything extra
+const moment = require('moment'); // The moment package, lets you view the current date and time in a nice format.
+
+let cooldown = new Set();
+let cdseconds = 10;
+
+// Second, lets call the file we just made using fs.
+var userData = JSON.parse(fs.readFileSync('Storage/userData.json', 'utf8'))
+
+let coins = JSON.parse(fs.readFileSync('Storage/coins.json', 'utf8')) //This calls the JSON file of coins
+
+// Function
+function userInfo(user) {
+  var finalString = '';
+
+  // Name
+  finalString += '**' + user.username + '**, with the **ID** of **' + user.id + '**';
+
+  // Now, lets add the created At date
+  var userCreated = user.createdAt.toString().split(' ');
+  finalString += ', was **created on ' + userCreated[1] + ', ' + userCreated[2] + ' ' + userCreated [3] + '**'
+
+  //Messages sent
+  finalString += ' Since then, they have **sent ' + userData[user.id].messagesSent + ' messages** to this discord!'
+  return finalString;
+}
+
+// Listener Event: Message Received (This will run every time a message is received)
+client.on('message', message => {
+
+  // Varaiables
+  var sender = message.author; // The person who sent the message
+  var msg = message.content.toUpperCase(); // Takes the message, and makes it all uppercase
+  var prefix = '/' //The text before commands, you can set this to what ever you want
+
+  if (client.user.id === message.author.id) { return } // ricarica l'acconto che ha l'user
+
+  // First, we need to make sure that it isn't reading a message that the bot is sending
+  if (sender.id === '554663813165875210') { // Check if the ID of the sender is the same id as the bot
+    return; // Cancels the rest of the Listener Event.
+  }
+
+// Creare e far uscire delle immagini random
+  ghoul = './images/ghoul.png'; aurora = './images/aurora.png'; brute = './images/brute.png'; candy = './images/candy.png'; cent = './images/cent.png'; chrono = './images/chrono.png'; euclid = './images/euclid.png'; jolt = './images/jolt.png'; jotunn = './images/jotunn.png'; magmax = './images/magmax.png'; morfe = './images/morfe.png'; necro = './images/necro.png'; nexus = './images/nexus.png'; rameses = './images/rameses.png'; reaper = './images/reaper.png'; rime = './images/rime.png'; shade = './images/shade.png';
+  if (msg === prefix + 'RANDOM_HERO') {
+    if(cooldown.has(message.author.id)){
+      message.delete();
+      return message.reply('You have to wait 10 second between commands.')
+    }
+    cooldown.add(message.author.id);
+    number = 16;
+    var random = Math.floor (Math.random() * (number - 1 + 1)) +1;
+    switch (random) {
+      case 1: message.channel.send ({ files: [aurora] }); break;
+      case 2: message.channel.send ({ files: [brute] }); break;
+      case 3: message.channel.send ({ files: [candy] }); break;
+      case 4: message.channel.send ({ files: [cent] }); break;
+      case 5: message.channel.send ({ files: [chrono] }); break;
+      case 6: message.channel.send ({ files: [euclid] }); break;
+      case 7: message.channel.send ({ files: [jolt] }); break;
+      case 8: message.channel.send ({ files: [jotunn] }); break;
+      case 9: message.channel.send ({ files: [magmax] }); break;
+      case 10: message.channel.send ({ files: [morfe] }); break;
+      case 11: message.channel.send ({ files: [necro] }); break;
+      case 12: message.channel.send ({ files: [nexus] }); break;
+      case 13: message.channel.send ({ files: [rameses] }); break;
+      case 14: message.channel.send ({ files: [reaper] }); break;
+      case 15: message.channel.send ({ files: [rime] }); break;
+      case 16: message.channel.send ({ files: [shade] }); break;
+      case 17: message.channel.send ({ files: [ghoul] }); break;
+    }
+    setTimeout(() => {
+      cooldown.delete(message.author.id)
+    }, cdseconds * 1000)
+  }
+  // Creare e far uscire delle mappe random
+    death_row = './images/death_row.png'; central_core = './images/central_core.png'; central_core_hard = './images/central_core_hard.png'; dangerous_district = './images/dangerous_district.png'; elite_expanse = './images/elite_expanse.png'; frozen_fjord = './images/frozen_fjord.png'; glacial_gorge = './images/glacial_gorge.png'; haunted_halls = './images/haunted_halls.png'; humongous_hollow = './images/humongous_hollow.png'; monumental_migration = './images/monumental_migration.png'; peculiar_pyramid = './images/peculiar_pyramid.png'; quiet_quarry = './images/quiet_quarry.png'; vicious_valley = './images/vicious_valley.png'; wacky_wonderland = './images/wacky_wonderland.png';
+    if (msg === prefix + 'RANDOM_ROUTE') {
+      if(cooldown.has(message.author.id)){
+        message.delete();
+        return message.reply('You have to wait 10 second between commands.')
+      }
+      cooldown.add(message.author.id);
+      number = 13;
+      var random = Math.floor (Math.random() * (number - 1 + 1)) +1;
+      switch (random) {
+        case 1: message.channel.send ({ files: [central_core] }); break;
+        case 2: message.channel.send ({ files: [central_core_hard] }); break;
+        case 3: message.channel.send ({ files: [dangerous_district] }); break;
+        case 4: message.channel.send ({ files: [elite_expanse] }); break;
+        case 5: message.channel.send ({ files: [frozen_fjord] }); break;
+        case 6: message.channel.send ({ files: [glacial_gorge] }); break;
+        case 7: message.channel.send ({ files: [haunted_halls] }); break;
+        case 8: message.channel.send ({ files: [humongous_hollow] }); break;
+        case 9: message.channel.send ({ files: [monumental_migration] }); break;
+        case 10: message.channel.send ({ files: [peculiar_pyramid] }); break;
+        case 11: message.channel.send ({ files: [quiet_quarry] }); break;
+        case 12: message.channel.send ({ files: [vicious_valley] }); break;
+        case 13: message.channel.send ({ files: [wacky_wonderland] }); break;
+        case 14: message.channel.send ({ files: [death_row] }); break;
+      }
+      setTimeout(() => {
+        cooldown.delete(message.author.id)
+      }, cdseconds * 1000)
+    }
+
+// Vedere il profilo di qualche giocatore sul gioco
+  if (msg.startsWith(`${prefix}PROFILE`)) {
+    var text = message.content.split(' ').slice(1).join(' ')
+    if (!text) return message.reply('Hey, say a correct name please')
+    if(cooldown.has(message.author.id)){
+      message.delete();
+      return message.reply('You have to wait 10 second between commands.')
+    }
+    cooldown.add(message.author.id);
+    message.channel.send('https://evades.io/profile/'+ text)
+    setTimeout(() => {
+      cooldown.delete(message.author.id)
+    }, cdseconds * 1000)
+  }
+
+  // Say comando (ripete ciò che scrivi)
+  if (msg.startsWith(`${prefix}SAY`)) {
+    var text = message.content.split(' ').slice(1).join(' ')
+    if (!text) return message.reply('Hey, say a correct phrase please')
+    if(cooldown.has(message.author.id)){
+      message.delete();
+      return message.reply('You have to wait 10 second between commands.')
+    }
+    cooldown.add(message.author.id);
+    message.channel.send(text)
+    setTimeout(() => {
+      cooldown.delete(message.author.id)
+    }, cdseconds * 1000)
+  }
+
+  //Evades.io link
+  if (msg === prefix + 'PLAY_GAME') {
+    if(cooldown.has(message.author.id)){
+      message.delete();
+      return message.reply('You have to wait 10 second between commands.')
+    }
+    cooldown.add(message.author.id);
+    message.channel.send('https://evades.io/') // Send a message to the channel, with the contents: "Pong!"
+    setTimeout(() => {
+      cooldown.delete(message.author.id)
+    }, cdseconds * 1000)
+  }
+
+  //Evades.io status
+  if (msg === prefix + 'STATUS') {
+    if(cooldown.has(message.author.id)){
+      message.delete();
+      return message.reply('You have to wait 10 second between commands.')
+    }
+    cooldown.add(message.author.id);
+    message.channel.send({embed: {
+      title:'_GAME STATUS_',
+      description:'**ONLINE**',
+      color:0x2ecc71
+    }})
+    setTimeout(() => {
+      cooldown.delete(message.author.id)
+    }, cdseconds * 1000)
+  }
+
+  //List Evades.io Maps
+  if (msg === prefix + 'ROUTES_LIST') {
+    if(cooldown.has(message.author.id)){
+      message.delete();
+      return message.reply('You have to wait 10 second between commands.')
+    }
+    cooldown.add(message.author.id);
+    message.channel.send('**Central Core**\n**Central Core Hard**\n**Vicious Valley**\n**Elite Expanse**\n**Wacky Wonderland**\n**Glacial Gorge**\n**Dangerous District**\n**Peculiar Pyramid**\n**Monumental Migration**\n**Humongous Hollow**\n**Haunted Halls**\n**Transforming Turbity**\n**Quiet Quarry**\n**Stellar Square*\n*Death Row**')
+    setTimeout(() => {
+      cooldown.delete(message.author.id)
+    }, cdseconds * 1000)
+  }
+
+  //List Evades.io Heroes
+  if (msg === prefix + 'HEROES_LIST') {
+    if(cooldown.has(message.author.id)){
+      message.delete();
+      return message.reply('You have to wait 10 second between commands.')
+    }
+    cooldown.add(message.author.id);
+    message.channel.send('**Magmax**\n**Rime**\n**Morfe**\n**Aurora**\n**Necro**\n**Brute**\n**Nexus**\n**Shade**\n**Euclid**\n**Chrono**\n**Reaper**\n**Rameses**\n**Jolt**\n**Cent**\n**Jotunn**\n**Candy**\n**Ghoul**')
+    setTimeout(() => {
+      cooldown.delete(message.author.id)
+    }, cdseconds * 1000)
+  }
+
+  //Magmax Image
+    if (msg === prefix + 'MAGMAX') {
+      if(cooldown.has(message.author.id)){
+        message.delete();
+        return message.reply('You have to wait 10 second between commands.')
+      }
+      cooldown.add(message.author.id);
+      message.channel.send({files: ['./images/magmax.png']});
+      setTimeout(() => {
+        cooldown.delete(message.author.id)
+      }, cdseconds * 1000)
+    }
+    //Magmax Ability
+      if (msg === prefix + 'MAGMAX_ABILITY') {
+        if(cooldown.has(message.author.id)){
+          message.delete();
+          return message.reply('You have to wait 10 second between commands.')
+        }
+        cooldown.add(message.author.id);
+        message.channel.send({files: ['./images/magmax-ability.png']});
+        setTimeout(() => {
+          cooldown.delete(message.author.id)
+        }, cdseconds * 1000)
+      }
+  //Rime Image
+    if (msg === prefix + 'RIME') {
+      if(cooldown.has(message.author.id)){
+        message.delete();
+        return message.reply('You have to wait 10 second between commands.')
+      }
+      cooldown.add(message.author.id);
+      message.channel.send({files: ['./images/rime.png']});
+      setTimeout(() => {
+        cooldown.delete(message.author.id)
+      }, cdseconds * 1000)
+    }
+    //Rime Ability
+      if (msg === prefix + 'RIME_ABILITY') {
+        if(cooldown.has(message.author.id)){
+          message.delete();
+          return message.reply('You have to wait 10 second between commands.')
+        }
+        cooldown.add(message.author.id);
+        message.channel.send({files: ['./images/rime-ability.png']});
+        setTimeout(() => {
+          cooldown.delete(message.author.id)
+        }, cdseconds * 1000)
+      }
+//Morfe Image
+  if (msg === prefix + 'MORFE') {
+    if(cooldown.has(message.author.id)){
+      message.delete();
+      return message.reply('You have to wait 10 second between commands.')
+    }
+    cooldown.add(message.author.id);
+    message.channel.send({files: ['./images/morfe.png']});
+    setTimeout(() => {
+      cooldown.delete(message.author.id)
+    }, cdseconds * 1000)
+  }
+  //Morfe Ability
+    if (msg === prefix + 'MORFE_ABILITY') {
+      if(cooldown.has(message.author.id)){
+        message.delete();
+        return message.reply('You have to wait 10 second between commands.')
+      }
+      cooldown.add(message.author.id);
+      message.channel.send({files: ['./images/morfe-ability.png']});
+      setTimeout(() => {
+        cooldown.delete(message.author.id)
+      }, cdseconds * 1000)
+    }
+//Aurora Image
+  if (msg === prefix + 'AURORA') {
+    if(cooldown.has(message.author.id)){
+      message.delete();
+      return message.reply('You have to wait 10 second between commands.')
+    }
+    cooldown.add(message.author.id);
+    message.channel.send({files: ['./images/aurora.png']});
+    setTimeout(() => {
+      cooldown.delete(message.author.id)
+    }, cdseconds * 1000)
+  }
+  //Aurora Ability
+    if (msg === prefix + 'AURORA_ABILITY') {
+      message.channel.send({files: ['./images/aurora-ability.png']});
+      setTimeout(() => {
+        cooldown.delete(message.author.id)
+      }, cdseconds * 1000)
+    }
+//Necro Image
+  if (msg === prefix + 'NECRO') {
+    if(cooldown.has(message.author.id)){
+      message.delete();
+      return message.reply('You have to wait 10 second between commands.')
+    }
+    cooldown.add(message.author.id);
+    message.channel.send({files: ['./images/necro.png']});
+    setTimeout(() => {
+      cooldown.delete(message.author.id)
+    }, cdseconds * 1000)
+  }
+  //Necro Ability
+    if (msg === prefix + 'NECRO_ABILITY') {
+      if(cooldown.has(message.author.id)){
+        message.delete();
+        return message.reply('You have to wait 10 second between commands.')
+      }
+      cooldown.add(message.author.id);
+      message.channel.send({files: ['./images/necro-ability.png']});
+      setTimeout(() => {
+        cooldown.delete(message.author.id)
+      }, cdseconds * 1000)
+    }
+//Brute Image
+  if (msg === prefix + 'BRUTE') {
+    if(cooldown.has(message.author.id)){
+      message.delete();
+      return message.reply('You have to wait 10 second between commands.')
+    }
+    cooldown.add(message.author.id);
+    message.channel.send({files: ['./images/brute.png']});
+    setTimeout(() => {
+      cooldown.delete(message.author.id)
+    }, cdseconds * 1000)
+  }
+  //Brute Ability
+    if (msg === prefix + 'BRUTE_ABILITY') {
+      if(cooldown.has(message.author.id)){
+        message.delete();
+        return message.reply('You have to wait 10 second between commands.')
+      }
+      cooldown.add(message.author.id);
+      message.channel.send({files: ['./images/brute-ability.png']});
+      setTimeout(() => {
+        cooldown.delete(message.author.id)
+      }, cdseconds * 1000)
+    }
+//Nexus Image
+  if (msg === prefix + 'NEXUS') {
+    if(cooldown.has(message.author.id)){
+      message.delete();
+      return message.reply('You have to wait 10 second between commands.')
+    }
+    cooldown.add(message.author.id);
+    message.channel.send({files: ['./images/nexus.png']});
+    setTimeout(() => {
+      cooldown.delete(message.author.id)
+    }, cdseconds * 1000)
+  }
+  //Nexus Ability
+    if (msg === prefix + 'NEXUS_ABILITY') {
+      if(cooldown.has(message.author.id)){
+        message.delete();
+        return message.reply('You have to wait 10 second between commands.')
+      }
+      cooldown.add(message.author.id);
+      message.channel.send({files: ['./images/nexus-ability.png']});
+      setTimeout(() => {
+        cooldown.delete(message.author.id)
+      }, cdseconds * 1000)
+    }
+//Shade Image
+  if (msg === prefix + 'SHADE') {
+    if(cooldown.has(message.author.id)){
+      message.delete();
+      return message.reply('You have to wait 10 second between commands.')
+    }
+    cooldown.add(message.author.id);
+    message.channel.send({files: ['./images/shade.png']});
+    setTimeout(() => {
+      cooldown.delete(message.author.id)
+    }, cdseconds * 1000)
+  }
+  //Shade Ability
+    if (msg === prefix + 'SHADE_ABILITY') {
+      if(cooldown.has(message.author.id)){
+        message.delete();
+        return message.reply('You have to wait 10 second between commands.')
+      }
+      cooldown.add(message.author.id);
+      message.channel.send({files: ['./images/shade-ability.png']});
+      setTimeout(() => {
+        cooldown.delete(message.author.id)
+      }, cdseconds * 1000)
+    }
+//Euclid Image
+  if (msg === prefix + 'EUCLID') {
+    if(cooldown.has(message.author.id)){
+      message.delete();
+      return message.reply('You have to wait 10 second between commands.')
+    }
+    cooldown.add(message.author.id);
+    message.channel.send({files: ['./images/euclid.png']});
+    setTimeout(() => {
+      cooldown.delete(message.author.id)
+    }, cdseconds * 1000)
+  }
+  //Euclid Ability
+    if (msg === prefix + 'EUCLID_ABILITY') {
+      if(cooldown.has(message.author.id)){
+        message.delete();
+        return message.reply('You have to wait 10 second between commands.')
+      }
+      cooldown.add(message.author.id);
+      message.channel.send({files: ['./images/euclid-ability.png']});
+      setTimeout(() => {
+        cooldown.delete(message.author.id)
+      }, cdseconds * 1000)
+    }
+//Reaper Image
+  if (msg === prefix + 'REAPER') {
+    if(cooldown.has(message.author.id)){
+      message.delete();
+      return message.reply('You have to wait 10 second between commands.')
+    }
+    cooldown.add(message.author.id);
+    message.channel.send({files: ['./images/reaper.png']});
+    setTimeout(() => {
+      cooldown.delete(message.author.id)
+    }, cdseconds * 1000)
+  }
+  //Reaper Ability
+    if (msg === prefix + 'REAPER_ABILITY') {
+      if(cooldown.has(message.author.id)){
+        message.delete();
+        return message.reply('You have to wait 10 second between commands.')
+      }
+      cooldown.add(message.author.id);
+      message.channel.send({files: ['./images/reaper-ability.png']});
+      setTimeout(() => {
+        cooldown.delete(message.author.id)
+      }, cdseconds * 1000)
+    }
+//Rameses Image
+  if (msg === prefix + 'RAMESES') {
+    if(cooldown.has(message.author.id)){
+      message.delete();
+      return message.reply('You have to wait 10 second between commands.')
+    }
+    cooldown.add(message.author.id);
+    message.channel.send({files: ['./images/rameses.png']});
+    setTimeout(() => {
+      cooldown.delete(message.author.id)
+    }, cdseconds * 1000)
+  }
+  //Rameses Ability
+    if (msg === prefix + 'RAMESES_ABILITY') {
+      if(cooldown.has(message.author.id)){
+        message.delete();
+        return message.reply('You have to wait 10 second between commands.')
+      }
+      cooldown.add(message.author.id);
+      message.channel.send({files: ['./images/rameses-ability.png']});
+      setTimeout(() => {
+        cooldown.delete(message.author.id)
+      }, cdseconds * 1000)
+    }
+//Jolt Image
+  if (msg === prefix + 'JOLT') {
+    if(cooldown.has(message.author.id)){
+      message.delete();
+      return message.reply('You have to wait 10 second between commands.')
+    }
+    cooldown.add(message.author.id);
+    message.channel.send({files: ['./images/jolt.png']});
+    setTimeout(() => {
+      cooldown.delete(message.author.id)
+    }, cdseconds * 1000)
+  }
+  //Jolt Ability
+    if (msg === prefix + 'JOLT-ABILITY') {
+      if(cooldown.has(message.author.id)){
+        message.delete();
+        return message.reply('You have to wait 10 second between commands.')
+      }
+      cooldown.add(message.author.id);
+      message.channel.send({files: ['./images/jolt-ability.png']});
+      setTimeout(() => {
+        cooldown.delete(message.author.id)
+      }, cdseconds * 1000)
+    }
+//Cent Image
+  if (msg === prefix + 'CENT') {
+    if(cooldown.has(message.author.id)){
+      message.delete();
+      return message.reply('You have to wait 10 second between commands.')
+    }
+    cooldown.add(message.author.id);
+    message.channel.send({files: ['./images/cent.png']});
+    setTimeout(() => {
+      cooldown.delete(message.author.id)
+    }, cdseconds * 1000)
+  }
+  //Cent Ability
+    if (msg === prefix + 'CENT_ABILITY') {
+      if(cooldown.has(message.author.id)){
+        message.delete();
+        return message.reply('You have to wait 10 second between commands.')
+      }
+      cooldown.add(message.author.id);
+      message.channel.send({files: ['./images/cent-ability.png']});
+      setTimeout(() => {
+        cooldown.delete(message.author.id)
+      }, cdseconds * 1000)
+    }
+//Jotunn Image
+  if (msg === prefix + 'JOTUNN') {
+    if(cooldown.has(message.author.id)){
+      message.delete();
+      return message.reply('You have to wait 10 second between commands.')
+    }
+    cooldown.add(message.author.id);
+    message.channel.send({files: ['./images/jotunn.png']});
+    setTimeout(() => {
+      cooldown.delete(message.author.id)
+    }, cdseconds * 1000)
+  }
+  //Jotunn Ability
+    if (msg === prefix + 'JOTUNN_ABILITY') {
+      if(cooldown.has(message.author.id)){
+        message.delete();
+        return message.reply('You have to wait 10 second between commands.')
+      }
+      cooldown.add(message.author.id);
+      message.channel.send({files: ['./images/jotunn-ability.png']});
+      setTimeout(() => {
+        cooldown.delete(message.author.id)
+      }, cdseconds * 1000)
+    }
+//Candy Image
+  if (msg === prefix + 'CANDY') {
+    if(cooldown.has(message.author.id)){
+      message.delete();
+      return message.reply('You have to wait 10 second between commands.')
+    }
+    cooldown.add(message.author.id);
+    message.channel.send({files: ['./images/candy.png']});
+    setTimeout(() => {
+      cooldown.delete(message.author.id)
+    }, cdseconds * 1000)
+  }
+  //Candy Ability
+    if (msg === prefix + 'CANDY_ABILITY') {
+      if(cooldown.has(message.author.id)){
+        message.delete();
+        return message.reply('You have to wait 10 second between commands.')
+      }
+      cooldown.add(message.author.id);
+      message.channel.send({files: ['./images/candy-ability.png']});
+      setTimeout(() => {
+        cooldown.delete(message.author.id)
+      }, cdseconds * 1000)
+    }
+//Chrono Image
+      if (msg === prefix + 'CHRONO') {
+        if(cooldown.has(message.author.id)){
+          message.delete();
+          return message.reply('You have to wait 10 second between commands.')
+        }
+        cooldown.add(message.author.id);
+        message.channel.send({files: ['./images/chrono.png']});
+        setTimeout(() => {
+          cooldown.delete(message.author.id)
+        }, cdseconds * 1000)
+      }
+//Chrono Ability
+      if (msg === prefix + 'CHRONO_ABILITY') {
+        if(cooldown.has(message.author.id)){
+          message.delete();
+          return message.reply('You have to wait 10 second between commands.')
+        }
+        cooldown.add(message.author.id);
+        message.channel.send({files: ['./images/chrono-ability.png']});
+        setTimeout(() => {
+          cooldown.delete(message.author.id)
+        }, cdseconds * 1000)
+      }
+//GhoulImage
+     if (msg === prefix + 'GHOUL') {
+        if(cooldown.has(message.author.id)){
+          message.delete();
+          return message.reply('You have to wait 10 second between commands.')
+        }
+        cooldown.add(message.author.id);
+        message.channel.send({files: ['./images/ghoul.png']});
+        setTimeout(() => {
+          cooldown.delete(message.author.id)
+        }, cdseconds * 1000)
+      }
+//Ghoul Ability
+     if (msg === prefix + 'GHOUL_ABILITY') {
+        if(cooldown.has(message.author.id)){
+          message.delete();
+          return message.reply('You have to wait 10 second between commands.')
+        }
+        cooldown.add(message.author.id);
+        message.channel.send({files: ['./images/ghoul-ability.png']});
+        setTimeout(() => {
+          cooldown.delete(message.author.id)
+        }, cdseconds * 1000)
+      }
+
+  //Central Core
+      if (msg === prefix + 'CENTRAL_CORE') {
+        if(cooldown.has(message.author.id)){
+          message.delete();
+          return message.reply('You have to wait 10 second between commands.')
+        }
+        cooldown.add(message.author.id);
+        message.channel.send({files: ['./images/central_core.png']});
+        setTimeout(() => {
+          cooldown.delete(message.author.id)
+        }, cdseconds * 1000)
+      }
+  //Central Core Hard
+      if (msg === prefix + 'CENTRAL_CORE_HARD') {
+        if(cooldown.has(message.author.id)){
+          message.delete();
+          return message.reply('You have to wait 10 second between commands.')
+        }
+        cooldown.add(message.author.id);
+        message.channel.send({files: ['./images/central_core_hard.png']});
+        setTimeout(() => {
+          cooldown.delete(message.author.id)
+        }, cdseconds * 1000)
+      }
+  //Elite Expanse
+      if (msg === prefix + 'ELITE_EXPANSE') {
+        if(cooldown.has(message.author.id)){
+          message.delete();
+          return message.reply('You have to wait 10 second between commands.')
+        }
+        cooldown.add(message.author.id);
+        message.channel.send({files: ['./images/elite_expanse.png']});
+        setTimeout(() => {
+          cooldown.delete(message.author.id)
+        }, cdseconds * 1000)
+      }
+  //Frozen Fjord
+      if (msg === prefix + 'FROZEN_FJORD') {
+        if(cooldown.has(message.author.id)){
+          message.delete();
+          return message.reply('You have to wait 10 second between commands.')
+        }
+        cooldown.add(message.author.id);
+        message.channel.send({files: ['./images/frozen_fjord.png']});
+        setTimeout(() => {
+          cooldown.delete(message.author.id)
+        }, cdseconds * 1000)
+      }
+  //Glacial Gorge
+      if (msg === prefix + 'GLACIAL_GORGE') {
+        if(cooldown.has(message.author.id)){
+          message.delete();
+          return message.reply('You have to wait 10 second between commands.')
+        }
+        cooldown.add(message.author.id);
+        message.channel.send({files: ['./images/glacial_gorge.png']});
+        setTimeout(() => {
+          cooldown.delete(message.author.id)
+        }, cdseconds * 1000)
+      }
+  //Haunted Halls
+      if (msg === prefix + 'HAUNTED_HALLS') {
+        if(cooldown.has(message.author.id)){
+          message.delete();
+          return message.reply('You have to wait 10 second between commands.')
+        }
+        cooldown.add(message.author.id);
+        message.channel.send({files: ['./images/haunted_halls.png']});
+        setTimeout(() => {
+          cooldown.delete(message.author.id)
+        }, cdseconds * 1000)
+      }
+  //Humongous Hollow
+      if (msg === prefix + 'HUMONGOUS_HOLLOW') {
+        if(cooldown.has(message.author.id)){
+          message.delete();
+          return message.reply('You have to wait 10 second between commands.')
+        }
+        cooldown.add(message.author.id);
+        message.channel.send({files: ['./images/humongous_hollow.png']});
+        setTimeout(() => {
+          cooldown.delete(message.author.id)
+        }, cdseconds * 1000)
+      }
+  //Monumental Migration
+      if (msg === prefix + 'MONUMENTAL_MIGRATION') {
+        if(cooldown.has(message.author.id)){
+          message.delete();
+          return message.reply('You have to wait 10 second between commands.')
+        }
+        cooldown.add(message.author.id);
+        message.channel.send({files: ['./images/monumental_migration.png']});
+        setTimeout(() => {
+          cooldown.delete(message.author.id)
+        }, cdseconds * 1000)
+      }
+  //Peculiar Pyramid
+      if (msg === prefix + 'PECULIAR_PYRAMID') {
+        if(cooldown.has(message.author.id)){
+          message.delete();
+          return message.reply('You have to wait 10 second between commands.')
+        }
+        cooldown.add(message.author.id);
+        message.channel.send({files: ['./images/peculiar_pyramid.png']});
+        setTimeout(() => {
+          cooldown.delete(message.author.id)
+        }, cdseconds * 1000)
+      }
+  //Quiet Quarry
+      if (msg === prefix + 'QUIET_QUARRY') {
+        if(cooldown.has(message.author.id)){
+          message.delete();
+          return message.reply('You have to wait 10 second between commands.')
+        }
+        cooldown.add(message.author.id);
+        message.channel.send({files: ['./images/quiet_quarry.png']});
+        setTimeout(() => {
+          cooldown.delete(message.author.id)
+        }, cdseconds * 1000)
+      }
+  //Vicious Valley
+      if (msg === prefix + 'VICIOUS_VALLEY') {
+        if(cooldown.has(message.author.id)){
+          message.delete();
+          return message.reply('You have to wait 10 second between commands.')
+        }
+        cooldown.add(message.author.id);
+        message.channel.send({files: ['./images/vicious_valley.png']});
+        setTimeout(() => {
+          cooldown.delete(message.author.id)
+        }, cdseconds * 1000)
+      }
+  //Wacky Wonderland
+      if (msg === prefix + 'WACKY_WONDERLAND') {
+        if(cooldown.has(message.author.id)){
+          message.delete();
+          return message.reply('You have to wait 10 second between commands.')
+        }
+        cooldown.add(message.author.id);
+        message.channel.send({files: ['./images/wacky_wonderland.png']});
+        setTimeout(() => {
+          cooldown.delete(message.author.id)
+        }, cdseconds * 1000)
+      }
+  //Dangerous District
+      if (msg === prefix + 'DANGEROUS_DISTRICT') {
+        if(cooldown.has(message.author.id)){
+          message.delete();
+          return message.reply('You have to wait 10 second between commands.')
+        }
+        cooldown.add(message.author.id);
+        message.channel.send({files: ['./images/dangerous_district.png']});
+        setTimeout(() => {
+          cooldown.delete(message.author.id)
+        }, cdseconds * 1000)
+      }
+  //Transforming Turbity (UNRELEASE)
+      if (msg === prefix + 'TRANSFORMING_TURBITY') {
+        if(cooldown.has(message.author.id)){
+          message.delete();
+          return message.reply('You have to wait 10 second between commands.')
+        }
+        cooldown.add(message.author.id);
+        message.channel.send({embed: {
+        title:'_Transforming Turbity_',
+        description:'**NOTHING TO SEE FOR THE MOMENT**',
+        color:0xf4faff
+      }})
+        setTimeout(() => {
+          cooldown.delete(message.author.id)
+        }, cdseconds * 1000)
+      }
+ //Death Row
+      if (msg === prefix + 'DEATH_ROW') {
+        if(cooldown.has(message.author.id)){
+          message.delete();
+          return message.reply('You have to wait 10 second between commands.')
+        }
+        cooldown.add(message.author.id);
+        message.channel.send({files: ['./images/death_row.png']});
+        setTimeout(() => {
+          cooldown.delete(message.author.id)
+        }, cdseconds * 1000)
+      }
+
+  //Ping / Pong commands
+  if (msg === prefix + 'PING') {
+    if(cooldown.has(message.author.id)){
+      message.delete();
+      return message.reply('You have to wait 10 second between commands.')
+    }
+    cooldown.add(message.author.id);
+    message.channel.send('Pong') // Send a message to the channel, with the contents: "Pong!"
+    setTimeout(() => {
+      cooldown.delete(message.author.id)
+    }, cdseconds * 1000)
+  }
+
+// Help commands
+  if (msg === prefix + 'HELP') {
+    if(cooldown.has(message.author.id)){
+      message.delete();
+      return message.reply('You have to wait 10 second between commands.')
+    }
+    cooldown.add(message.author.id); // Codice da aggustare
+    message.delete();
+    message.author.send('**14 commands found** - "" is optional, you don\'t need to add this in the commands, everything you read in "" you have to change it with what it asks of you\n\n**HELP**\n**Description:** Displays a list of commands\n**Usage:** /Help\n\n**PING**\n**Description:** Show if the bot is online\n**Usage:** /Ping\n\n**USERSTATS**\n**Description:** Show how many messages you\'ve sent\n**Usage:** /Userstats\n\n**HEROES LIST**\n**Description:** Show all in-game heroes\n**Usage:** /Heroes_list\n\n**HEROES**\n**Description:** Show a picture of the hero\n**Usage:** /"HERO_NAME"\n\n**HEROES ABILITY**\n**Description:** Show the abilities of the hero\n**Usage:** /"HERO"_ABILITY\n\n**RANDOM HERO**\n**Description:** Show a random hero, challenge fate and use the hero who comes out of you in the game\n**Usage:** /RANDOM_HERO\n\n**EVADES.IO LINK**\n**Description:** Show link of the game\n**Usage:** /PLAY_GAME\n\n**EVADES.IO PROFILE**\n**Description:** Show your in-game profile\n**Usage:** /PROFILE "NAME"\n\n**GAME STATUS**\n**Description:** Show the game status online/offline\n**Usage:** /STATUS\n\n**SAY**\n**Description:** Repeat what you say\n**Usage:** /SAY "MESSAGE"\n\n**ROUTES LIST**\n**Description:** Show all routes\n**Usage:** /ROUTES_LIST\n\n**ROUTES**\n**Description:** Show a picture of a route\n**Usage:** /"ROUTE_NAME"\n\n**RANDOM ROUTE**\n**Description:** Show a random route, challenge fate and play the route who comes out of you in the game \n**Usage:** /RANDOM_ROUTE\n\n**VP BALANCE**\n**Description:** Show your _Discord VP_\n**Usage:** /VP\n\n**DAILY VP**\n**Description:** Earn your free daily VP\n**Usage:** /DAILY\n\n**USER INFO :new:**\n**Description:** Show user info\n**Usage:** /INFO "USER NAME"')
+    setTimeout(() => {
+      cooldown.delete(message.author.id)
+    }, cdseconds * 1000)
+  }
+
+// User stats
+if (msg === prefix + 'INFO') {
+  // We should assume that if they are not adding a name to the end of the command they want info on themself
+  if (msg === prefix + 'INFO') {
+    message.channel.send(userInfo(sender)); // This wil return the message about info on themselfs. We should make a function
+  }
+}
+
+//Bannare dei messaggi
+  if (msg === 'ANAL') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return; // Il ruolo che può inviare lo stesso questo messaggio
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it') // Inviare l'avvertimento alla persona
+  }
+  if (msg === 'ANUS') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'ARSE') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'ASSHOLE') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'BALLSACK') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'BASTARD') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'BITCH') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'BIATCH') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'BLOODY') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'BLOWJOB') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'BLOW JOB') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'BOLLOCK') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'BOLLOK') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'BONER') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'BOOB') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'BUGGER') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'BUM') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'BUTT') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'BUTTPLUG') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'CLITORIS') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'COCK') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'COON') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'CRAP') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'CUNT') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'CUNTS') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'CHINK') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'DICK') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'DILDO') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'DYKE') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'FAG') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'FAGS') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'FAGGOT') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'FAGGOTS') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'FGGOT') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'FAGGOTRY') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'FGGOTRY') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'FGGOTNGGER') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'FGGOTNIGGER') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'FGGOTNGGERS') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'FGGOTNIGGERS') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'FECK') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'FELLATE') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'FELLATIO') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'FELCHING') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'FUDGEPACKER') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'FUDGE PACKER') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'FLANGE') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'FUCK OFF') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'FUCKED') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'GOOK') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'GODDAMN') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'GOD DAMN') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'HOMO') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'HOMOSEXUAL') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'JERK') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'JIZZ') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'KNOBEND') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'KNOB END') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'LABIA') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'MUFF') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'NIGGER') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'NIGGA') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'NIGGAS') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'NIGGERS') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'NGGER') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'NEGRO') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'NEGROES') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'NEGROS') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'NIGGERFAGGOTS') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'NGGERFGGOT') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'NGGERFAGGOT') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'NGGERFGGOTS') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'NGGERFAGGOTS') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'PISS') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'PRICK') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'PUBE') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'PUSSY') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'RAPE') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'RETARD') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'RETARDED') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'QUEER') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'SCROTUM') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'SLUT') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'SMEGMA') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'SPUNK') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'TOSSER') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'TURD') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'TWAT') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'VAGINA') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'WANK') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'WHORE') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }
+  if (msg === 'KIKE') {
+    if(message.member.hasPermission('ADMINISTRATOR')) return;
+    message.delete();
+    message.author.send('That word is **banned**, please don\'t use it')
+  }// LISTA DELLE PAROLE BANNATE
+
+  // Now, calling it is pretty easy.
+  if (msg === prefix + 'USERSTATS') {
+    if(cooldown.has(message.author.id)){
+      message.delete();
+      return message.reply('You have to wait 10 second between commands.')
+    }
+    cooldown.add(message.author.id);
+    message.channel.send('You have sent **' + userData[sender.id].messagesSent + '** messages!')
+    setTimeout(() => {
+      cooldown.delete(message.author.id)
+    }, cdseconds * 1000)
+  }
+
+  // Now, lets make sure their username is there before writing to the file.
+  if (!userData[sender.id]) userData[sender.id] = {
+    messagesSent: 0
+  }
+
+  // Now, let's increase messagesSent and write to the final file.
+  userData[sender.id].messagesSent++; // This adds one to 'messagesSent', under the user
+
+  // To save the file we have to write this:
+  fs.writeFile('Storage/userData.json', JSON.stringify(userData), (err) => {
+    if (err) console.error(err); // We just want it to Log if there is an error.
+  });
+
+  // Events (coins)
+  let coins = JSON.parse(fs.readFileSync('Storage/coins.json', 'utf8'))
+
+  if (!coins[sender.id + message.guild.id]) coins[sender.id + message.guild.id] = {} // This creates a json file for their user + guild, if one is not made already
+  if (!coins[sender.id + message.guild.id].money) coins[sender.id + message.guild.id].money = 1000; // This creates a money object for them if they don't have one already
+  if (!coins[sender.id + message.guild.id].lastDaily) coins[sender.id + message.guild.id].lastDaily = 'Not Collected' // This creates the lastDaily, or the time they lost collected their daily rewards
+
+  //Money [Access your balance]
+  if (msg === prefix + 'VP') {
+    if(cooldown.has(message.author.id)){
+      message.delete();
+      return message.reply('You have to wait 10 second between commands.')
+    }
+    cooldown.add(message.author.id);
+    message.channel.send({embed:{
+      title:"Bank",
+      color:0xF1C40F,
+      fields:[{
+        name:'Account Holder',
+        value:message.author.username,
+        inline:true
+      },
+      {
+        name:'Account Balance',
+        value:coins[sender.id + message.guild.id].money,
+        inline:true
+    }]
+    }})
+    setTimeout(() => {
+      cooldown.delete(message.author.id)
+    }, cdseconds * 1000)
+  }
+
+  if (msg === prefix + 'DAILY') {
+    if(cooldown.has(message.author.id)){
+      message.delete();
+      return message.reply('You have to wait 10 second between commands.')
+    }
+    cooldown.add(message.author.id); // This runs the daily reward command, so they can get money each day
+    if (coins[sender.id + message.guild.id].lastDaily != moment().format('L')) { // This checks if the lastDaily object, is the same as the current date
+      coins[sender.id + message.guild.id].lastDaily = moment().format('L') // This switches lastDaily with the current date, so they cant get it again today
+      coins[sender.id + message.guild.id].money += 100; // This adds 100 VPs to the user account
+      message.channel.send({embed:{
+        title:"Daily Reward",
+        color:0xF1C40F,
+        description:"You got **100VP** added to your account"
+      }})
+    } else {
+      message.channel.send({embed:{
+        title:"Daily Reward",
+        description:"You already collected your daily reward! You can collect your next reward " + moment().endOf('day').fromNow() + '.'
+      }})
+    }
+    setTimeout(() => {
+      cooldown.delete(message.author.id)
+    }, cdseconds * 1000)
+  }
+  fs.writeFile('Storage/coins.json', JSON.stringify(coins), (err) => {
+    if (err) console.error(err);
+  })
+
+});
+
+//Listener Event: Bot Launched
+client.on('ready', () => {
+  console.log('Bot Launched...') //Runs when the bot is Launched
+
+  // You can put any code you want here, it will run when you turn on your bot
+
+  // We will be going over setting 'game playing', 'status', and 'streaming'
+
+  // status
+  client.user.setStatus('Online') // Your status goes here; it can be 'Online', 'Idle', 'Invisible', & 'dnd'
+
+  // game & streaming
+  client.user.setActivity('Evades.io') // You can change the string to whatever you want it to say.
+});
+
+// Login
+client.login('NTU0NjYzODEzMTY1ODc1MjEw.D2gPNQ.t2XMU0tlfbof_Rt1XpGEH2FPksY') // Don't let people see this code, people can control your bot, including the servers your bot has admin on
+// To do: Enemy List, Permissions, Mute/Ban..., Enemies Ability Images,
